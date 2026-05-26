@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>serene with mary — wisdom for the slow work of recovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Gowun+Dodum&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F4EEFA;
+    --bg-deep: #E8DBF5;
+    --ink: #2D1B4E;
+    --ink-soft: #5B4880;
+    --whisper: #8A7AA8;
+    --violet: #7B3FBF;
+    --violet-deep: #5A2A99;
+    --violet-light: #C8A8E8;
+    --pink-glow: #F4C4E0;
+    --pink-soft: #FBE0F0;
+    --gold: #D4A84A;
+    --line: rgba(123,63,191,0.15);
+    --glass: rgba(255,255,255,0.55);
+    --glass-strong: rgba(255,255,255,0.75);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 380;
+    font-variation-settings: "SOFT" 70, "opsz" 14;
+    font-size: 17px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+    cursor: none;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -30%;
+    z-index: -2;
+    background:
+      radial-gradient(circle at 18% 28%, rgba(200,168,232,0.55) 0%, transparent 42%),
+      radial-gradient(circle at 82% 18%, rgba(244,196,224,0.5) 0%, transparent 42%),
+      radial-gradient(circle at 72% 80%, rgba(184,216,240,0.45) 0%, transparent 42%),
+      radial-gradient(circle at 28% 78%, rgba(232,213,245,0.55) 0%, transparent 42%),
+      radial-gradient(circle at 50% 50%, rgba(255,232,213,0.3) 0%, transparent 55%);
+    animation: holoShift 28s ease-in-out infinite;
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.12;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  @keyframes holoShift {
+    0%, 100% { transform: translate(0,0); }
+    33% { transform: translate(-2%, 2%); }
+    66% { transform: translate(2%, -2%); }
+  }
+
+  .ko { font-family: 'Gowun Dodum', 'Fraunces', serif; }
+
+  .sparkle {
+    display: inline-block;
+    color: var(--gold);
+    animation: twinkle 3.5s ease-in-out infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.55; transform: scale(1) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.15) rotate(180deg); }
+  }
+
+  /* ============ CUSTOM CURSOR ============ */
+  .cursor {
+    position: fixed;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,180,217,0.8) 0%, rgba(200,168,232,0.4) 50%, transparent 70%);
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: multiply;
+    transition: transform 0.2s, opacity 0.2s;
+    transform: translate(-50%, -50%);
+  }
+
+  .cursor.hover {
+    transform: translate(-50%, -50%) scale(2);
+  }
+
+  @media (max-width: 900px) {
+    body { cursor: auto; }
+    .cursor { display: none; }
+  }
+
+  /* ============ SCROLL PROGRESS BAR ============ */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #E8B4D9, #C8A8E8, #B8D8F0);
+    z-index: 9998;
+    transition: width 0.1s;
+    width: 0%;
+    box-shadow: 0 0 12px rgba(200,168,232,0.6);
+  }
+
+  /* ============ CLICK SPARKLE ============ */
+  .click-sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9997;
+    font-size: 1.4rem;
+    animation: sparkleOut 0.8s ease-out forwards;
+  }
+
+  @keyframes sparkleOut {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(0) rotate(0deg); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2) rotate(180deg); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5) rotate(360deg) translateY(-40px); }
+  }
+
+  /* ============ NAV ============ */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(244,238,250,0.85) 0%, rgba(244,238,250,0.5) 70%, transparent 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: padding 0.3s;
+  }
+
+  nav.scrolled {
+    padding: 0.85rem 3rem;
+    background: rgba(244,238,250,0.92);
+    box-shadow: 0 4px 20px rgba(123,63,191,0.08);
+  }
+
+  nav .mark {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 1.4rem;
+    color: var(--violet-deep);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+
+  nav .mark .sparkle { font-size: 0.85em; margin-left: 0.2em; }
+
+  nav ul { display: flex; gap: 2.2rem; list-style: none; }
+
+  nav a {
+    color: var(--ink);
+    text-decoration: none;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  nav a::after {
+    content: "";
+    position: absolute;
+    bottom: -4px; left: 50%;
+    width: 0; height: 1.5px;
+    background: var(--violet);
+    transition: width 0.3s, left 0.3s;
+  }
+
+  nav a:hover { color: var(--violet); }
+  nav a:hover::after { width: 100%; left: 0; }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 100vh;
+    padding: 8rem 3rem 5rem;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 90rem;
+    margin: 0 auto;
+  }
+
+  .hero-text { animation: fadeUp 1.4s ease-out; }
+
+  .hero .eyebrow {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--violet-deep);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1.1rem;
+    background: var(--glass-strong);
+    backdrop-filter: blur(10px);
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.7);
+    box-shadow: 0 4px 16px rgba(123,63,191,0.08);
+  }
+
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(2.75rem, 6.5vw, 5.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+  }
+
+  .hero h1 .italic { font-style: italic; color: var(--violet-deep); }
+  .hero h1 em { font-style: italic; color: var(--violet-deep); }
+
+  /* TYPED EFFECT */
+  .typed-word {
+    display: inline-block;
+    min-width: 8ch;
+    color: var(--violet-deep);
+    font-style: italic;
+    position: relative;
+  }
+
+  .typed-word::after {
+    content: "|";
+    color: var(--violet);
+    animation: blink 1s infinite;
+    margin-left: 2px;
+    font-weight: 200;
+  }
+
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  .hero .ko-sub {
+    display: block;
+    font-family: 'Gowun Dodum', serif;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    margin-top: 1.5rem;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .hero .lede {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    max-width: 32rem;
+    margin-top: 2.25rem;
+    line-height: 1.75;
+  }
+
+  .hero .lede strong { font-weight: 500; color: var(--ink); }
+
+  .hero .ctas {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 0.875rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.75rem;
+    border-radius: 999px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    font-weight: 400;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    cursor: none;
+    border: none;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary {
+    background: var(--violet);
+    color: white;
+    box-shadow: 0 8px 24px rgba(123,63,191,0.32);
+  }
+
+  .btn-primary::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.6s;
+  }
+
+  .btn-primary:hover::before { left: 100%; }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(123,63,191,0.42);
+    background: var(--violet-deep);
+  }
+
+  .btn-ghost {
+    background: var(--glass-strong);
+    color: var(--violet-deep);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(123,63,191,0.2);
+  }
+
+  .btn-ghost:hover {
+    transform: translateY(-2px);
+    background: white;
+  }
+
+  /* HERO ORB */
+  .hero-visual {
+    position: relative;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 2s ease-out 0.4s both;
+  }
+
+  .orb {
+    position: relative;
+    width: 78%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.75) 0%, transparent 35%),
+      conic-gradient(from 0deg at 50% 50%,
+        #E8B4D9 0deg, #C8A8E8 60deg, #B8D8F0 120deg,
+        #FFE8D5 180deg, #F4C4E0 240deg, #C8A8E8 300deg, #E8B4D9 360deg);
+    box-shadow:
+      0 0 80px rgba(232,180,217,0.45),
+      0 0 160px rgba(184,216,240,0.35),
+      inset 0 0 60px rgba(255,255,255,0.5);
+    animation: orbSpin 32s linear infinite, orbFloat 7s ease-in-out infinite;
+    filter: blur(0.5px);
+    cursor: none;
+    transition: transform 0.4s;
+  }
+
+  .orb:hover {
+    animation-play-state: paused;
+  }
+
+  .orb::before {
+    content: "";
+    position: absolute;
+    inset: -25px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,180,217,0.35) 0%, transparent 65%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes orbSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes orbFloat {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -18px; }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 0.85; transform: scale(1.06); }
+  }
+
+  .star {
+    position: absolute;
+    color: white;
+    text-shadow: 0 0 14px rgba(255,255,255,0.9);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .star.s1 { top: 10%; right: 12%; font-size: 1.6rem; animation: twinkle 3s ease-in-out infinite; }
+  .star.s2 { bottom: 16%; left: 6%; font-size: 1.1rem; animation: twinkle 4s ease-in-out infinite 0.5s; }
+  .star.s3 { top: 45%; right: 3%; font-size: 0.9rem; animation: twinkle 3.5s ease-in-out infinite 1s; }
+  .star.s4 { bottom: 28%; right: 18%; font-size: 1.3rem; animation: twinkle 5s ease-in-out infinite 1.5s; }
+  .star.s5 { top: 22%; left: 10%; font-size: 1rem; animation: twinkle 4s ease-in-out infinite 0.3s; }
+
+  /* SECTION COMMON */
+  section { padding: 7rem 3rem; position: relative; }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    background: var(--glass-strong);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.7);
+    border-radius: 999px;
+    color: var(--violet-deep);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* MISSION */
+  .mission {
+    text-align: center;
+    padding: 6rem 3rem;
+    max-width: 60rem;
+    margin: 0 auto;
+  }
+
+  .mission .small-label {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--violet-deep);
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+    text-transform: lowercase;
+  }
+
+  .mission h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 4.5vw, 3.75rem);
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+  }
+
+  .mission h2 em { font-style: italic; color: var(--violet-deep); }
+
+  .mission .ko-mirror {
+    font-family: 'Gowun Dodum', serif;
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    line-height: 1.85;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    max-width: 38rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 5rem;
+    max-width: 75rem;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .about h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+
+  .about h2 em { font-style: italic; color: var(--violet-deep); }
+
+  .about-prose p {
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .about-prose em {
+    font-style: italic;
+    color: var(--violet-deep);
+    font-weight: 450;
+  }
+
+  .about-prose .ko-block {
+    margin-top: 2.5rem;
+    padding: 2rem 2.25rem;
+    background: var(--glass-strong);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    line-height: 1.95;
+    color: var(--ink);
+    box-shadow: 0 8px 24px rgba(123,63,191,0.08);
+  }
+
+  /* WORK */
+  .work-header {
+    text-align: center;
+    max-width: 50rem;
+    margin: 0 auto 4rem;
+  }
+
+  .work-header h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    margin-bottom: 1rem;
+    color: var(--ink);
+  }
+
+  .work-header h2 em { font-style: italic; color: var(--violet-deep); }
+
+  .work-header p {
+    color: var(--ink-soft);
+    font-style: italic;
+    font-size: 1.05rem;
+  }
+
+  .rooms {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 65rem;
+    margin: 0 auto;
+  }
+
+  .room {
+    background: var(--glass-strong);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.7);
+    border-radius: 2rem;
+    padding: 2.5rem;
+    transition: transform 0.4s, box-shadow 0.4s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(123,63,191,0.06);
+    cursor: none;
+  }
+
+  .room::before {
+    content: "";
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(232,180,217,0.18), transparent 30%);
+    animation: shimmer 10s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes shimmer { to { transform: rotate(360deg); } }
+
+  .room:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 28px 56px rgba(123,63,191,0.2);
+  }
+
+  .room .icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E8B4D9, #C8A8E8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 16px rgba(200,168,232,0.5);
+    position: relative;
+    z-index: 2;
+    transition: transform 0.4s;
+  }
+
+  .room:hover .icon { transform: rotate(-8deg) scale(1.08); }
+
+  .room .icon svg { width: 28px; height: 28px; color: white; }
+
+  .room h3 {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 2.2rem;
+    color: var(--ink);
+    margin-bottom: 0.25rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .room .ko-name {
+    font-family: 'Gowun Dodum', serif;
+    color: var(--violet);
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .room p {
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .room .room-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--violet-deep);
+    text-decoration: none;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.98rem;
+    font-weight: 500;
+    position: relative;
+    z-index: 2;
+    transition: gap 0.3s;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--line);
+    cursor: none;
+  }
+
+  .room .room-link:hover { gap: 0.8rem; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(45, 27, 78, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s, visibility 0.4s;
+  }
+
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal {
+    background: var(--bg);
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 2rem;
+    padding: 3rem;
+    max-width: 36rem;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 32px 80px rgba(123,63,191,0.3);
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.4s;
+  }
+
+  .modal-overlay.active .modal {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--glass-strong);
+    border: 1px solid var(--line);
+    color: var(--violet-deep);
+    font-size: 1.2rem;
+    cursor: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, background 0.3s;
+  }
+
+  .modal-close:hover {
+    transform: rotate(90deg);
+    background: white;
+  }
+
+  .modal h3 {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 2rem;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .modal p {
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+    line-height: 1.7;
+  }
+
+  .modal .modal-ko {
+    font-family: 'Gowun Dodum', serif;
+    color: var(--ink);
+    background: var(--glass-strong);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    margin-top: 1.5rem;
+    line-height: 1.85;
+  }
+
+  /* FEATURED */
+  .featured {
+    text-align: center;
+    padding: 7rem 3rem;
+  }
+
+  .featured-inner {
+    max-width: 52rem;
+    margin: 0 auto;
+    padding: 4rem 3rem;
+    background: var(--glass-strong);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 2.5rem;
+    position: relative;
+    box-shadow: 0 24px 60px rgba(123,63,191,0.12);
+  }
+
+  .featured-inner::before,
+  .featured-inner::after {
+    content: "✦";
+    position: absolute;
+    color: var(--gold);
+    font-size: 1.4rem;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+
+  .featured-inner::before { top: 1.5rem; left: 1.5rem; }
+  .featured-inner::after { bottom: 1.5rem; right: 1.5rem; animation-delay: 1.5s; }
+
+  .featured blockquote {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 2rem;
+  }
+
+  .featured blockquote em { color: var(--violet-deep); }
+
+  .featured .ko-poem {
+    font-family: 'Gowun Dodum', serif;
+    color: var(--ink);
+    font-size: 1.05rem;
+    line-height: 2;
+    white-space: pre-line;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .featured .attribution {
+    margin-top: 2rem;
+    color: var(--whisper);
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+
+  /* NEWSLETTER */
+  .newsletter {
+    text-align: center;
+    padding: 7rem 3rem 8rem;
+  }
+
+  .newsletter-inner { max-width: 40rem; margin: 0 auto; }
+
+  .newsletter h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    color: var(--ink);
+  }
+
+  .newsletter h2 em { font-style: italic; color: var(--violet-deep); }
+
+  .newsletter .ko-sub {
+    font-family: 'Gowun Dodum', serif;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .signup {
+    display: flex;
+    background: var(--glass-strong);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.8);
+    border-radius: 999px;
+    padding: 0.4rem;
+    box-shadow: 0 12px 32px rgba(123,63,191,0.12);
+    margin-bottom: 1rem;
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+
+  .signup:focus-within {
+    box-shadow: 0 16px 40px rgba(123,63,191,0.2);
+    transform: translateY(-2px);
+  }
+
+  .signup input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Fraunces', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    padding: 0.9rem 1.5rem;
+  }
+
+  .signup input::placeholder {
+    color: var(--whisper);
+    font-style: italic;
+  }
+
+  .signup button {
+    background: var(--violet);
+    color: white;
+    border: none;
+    padding: 0.9rem 1.75rem;
+    border-radius: 999px;
+    cursor: none;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.98rem;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  }
+
+  .signup button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(123,63,191,0.42);
+    background: var(--violet-deep);
+  }
+
+  .newsletter .fineprint {
+    color: var(--whisper);
+    font-size: 0.85rem;
+    font-style: italic;
+    transition: color 0.3s;
+  }
+
+  .newsletter .fineprint.success {
+    color: var(--violet-deep);
+    font-weight: 500;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 4rem 3rem 3rem;
+    background: linear-gradient(180deg, transparent 0%, rgba(220,201,245,0.35) 100%);
+    text-align: center;
+  }
+
+  .footer-mark {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 2rem;
+    color: var(--violet-deep);
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-tagline {
+    color: var(--ink-soft);
+    font-style: italic;
+    font-size: 1rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .socials a {
+    color: var(--violet-deep);
+    text-decoration: none;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    background: var(--glass-strong);
+    transition: background 0.3s, transform 0.3s;
+    border: 1px solid rgba(255,255,255,0.7);
+    cursor: none;
+  }
+
+  .socials a:hover {
+    background: white;
+    transform: translateY(-3px);
+  }
+
+  .copyright {
+    color: var(--whisper);
+    font-size: 0.85rem;
+    font-style: italic;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+    max-width: 50rem;
+    margin: 0 auto;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s, transform 1s; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.25rem; }
+    nav.scrolled { padding: 0.75rem 1.25rem; }
+    nav ul { gap: 1rem; }
+    nav a { font-size: 0.9rem; }
+    section { padding: 4rem 1.5rem; }
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 6rem 1.5rem 3rem;
+      gap: 2rem;
+      min-height: auto;
+    }
+    .hero-visual { height: 45vh; order: -1; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .rooms { grid-template-columns: 1fr; }
+    .signup { flex-direction: column; border-radius: 1.5rem; gap: 0.5rem; }
+    .signup button { width: 100%; }
+    .featured-inner { padding: 2.5rem 1.5rem; }
+    .modal { padding: 2rem 1.5rem; }
+    a, button, .room, .orb { cursor: pointer !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom cursor & scroll bar -->
+<div class="cursor" id="cursor"></div>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<nav id="nav">
+  <a href="#" class="mark">serene with mary <span class="sparkle">✦</span></a>
+  <ul>
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#letters">Letters</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="eyebrow">a recovery artist <span class="sparkle">✦</span> bilingual · 1.5gen</div>
+    <h1>
+      Wisdom for the<br>
+      <em>slow, soft work</em> of<br>
+      becoming <span class="typed-word" id="typedWord">yourself</span>
+    </h1>
+    <span class="ko-sub ko">자신에게 돌아오는 길에 — 글, 그림, 음악으로 함께.</span>
+    <p class="lede">
+      I'm <strong>Mary</strong> — a bilingual writer, designer, and musician working between Seoul and Chicago. I make small, honest things for the long work of healing: <strong>essays, illustrations, and music</strong> that I wish someone had given the 23-year-old version of me.
+    </p>
+    <div class="ctas">
+      <a href="#letters" class="btn btn-primary">Receive the letters <span class="sparkle">✦</span></a>
+      <a href="#mission" class="btn btn-ghost">What this is →</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="orb" id="orb"></div>
+    <span class="star s1">✦</span>
+    <span class="star s2">✧</span>
+    <span class="star s3">✦</span>
+    <span class="star s4">✧</span>
+    <span class="star s5">✦</span>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission" id="mission">
+  <div class="small-label reveal">— the work · 업 —</div>
+  <h2 class="reveal">
+    I make <em>notes from the middle</em> — translating what I'm<br>
+    learning, still, from recovery into <em>words, images,<br>
+    and music</em> that might travel further than I can.
+  </h2>
+  <div class="ko-mirror ko reveal">
+    회복의 중간에서 배우고 있는 것들을, 글과 그림과 음악으로 옮겨 적어<br>
+    나보다 멀리 가게 만드는 일 — 이것이 제 업이에요.
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="reveal">
+      <span class="section-tag">about <span class="sparkle">✦</span></span>
+      <h2>How I got<br><em>here</em>.</h2>
+    </div>
+    <div class="about-prose reveal">
+      <p>
+        I crossed the Pacific at twelve. I learned English in middle school cafeterias and learned my own mind through therapy rooms, twelve-step rooms, and EMDR sessions. The diagnoses are real — <em>OCD, anxiety, depression, bulimia, PTSD</em>. So is the recovery.
+      </p>
+      <p>
+        Art is what saved me. Photoshop, in particular, around age 23. Writing, around the same time. Music has always been there. So has the slow practice of sitting with what hurts and not running.
+      </p>
+      <p>
+        I want to be honest with you: <em>this isn't a finished story</em>. Recovery isn't linear, and I'm still in it. I've made it through a lot, and I'm also still making it through. What I share are notes from the middle — not lessons from the end.
+      </p>
+      <p>
+        This site is not a clinic. I'm not a therapist. I'm someone who has spent enough years inside several kinds of rooms to believe that <em>the survivor's voice matters too</em> — especially when it comes from someone still in the room with you.
+      </p>
+      <div class="ko-block ko">
+        열두 살에 태평양을 건넜고, 지금은 시카고에 살아요.<br>
+        많이 이겨냈고, 아직도 이기는 중이에요.<br><br>
+        제가 나누는 건 끝에서의 교훈이 아니라 —<br>
+        같은 방 안에서, 중간에 적는 기록이에요.<br>
+        그래서 어쩌면 더 진짜일 수도 있어요. <span class="sparkle">✦</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="work-header reveal">
+    <span class="section-tag">the rooms <span class="sparkle">✦</span></span>
+    <h2>One practice,<br><em>three rooms</em>.</h2>
+    <p>Click a room to step inside.</p>
+  </div>
+
+  <div class="rooms">
+    <article class="room reveal" data-room="words">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 6h16M4 10h12M4 14h14M4 18h8"/>
+        </svg>
+      </div>
+      <h3>Words</h3>
+      <div class="ko-name">— 글 · writing</div>
+      <p>Bilingual essays, letters, and poems on recovery, identity, and the long work of becoming a person who can stay.</p>
+      <a href="#" class="room-link">Step inside →</a>
+    </article>
+
+    <article class="room reveal" data-room="images">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path d="M3 15l5-5 4 4 3-3 6 6"/>
+          <circle cx="8.5" cy="8.5" r="1.5"/>
+        </svg>
+      </div>
+      <h3>Images</h3>
+      <div class="ko-name">— 그림 · design</div>
+      <p>Illustrations, cards, prints, stickers, and small objects — soft things that hold hard truths.</p>
+      <a href="#" class="room-link">Step inside →</a>
+    </article>
+
+    <article class="room reveal" data-room="sound" style="grid-column: 1 / -1; max-width: 32rem; margin: 0 auto;">
+      <div class="icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+        </svg>
+      </div>
+      <h3>Sound</h3>
+      <div class="ko-name">— 소리 · music</div>
+      <p>Piano pieces and ambient tracks made at home. Music for when reading is too much — for lying down, for walking slow, for after.</p>
+      <a href="#" class="room-link">Step inside →</a>
+    </article>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="featured">
+  <div class="featured-inner reveal">
+    <blockquote>
+      "Recovery isn't a place you arrive at. It's a <em>room you furnish</em>, slowly, over years — with the chair you keep, the lamp you turn on at 5 a.m., the language you finally learn to speak about yourself."
+    </blockquote>
+    <div class="ko-poem ko">회복은 도착하는 곳이 아니에요.
+오래 머무는 방이에요.
+새벽에 켜두는 작은 등,
+스스로에게 처음 건네는 한국어 문장,
+그런 것들로 천천히 채워지는.</div>
+    <div class="attribution">— from a recent letter <span class="sparkle">✦</span></div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter" id="letters">
+  <div class="newsletter-inner reveal">
+    <span class="section-tag">letters · 편지 <span class="sparkle">✦</span></span>
+    <h2>A letter,<br><em>every other Sunday</em>.</h2>
+    <div class="ko-sub ko">격주 일요일, 부드러운 편지 한 통.</div>
+
+    <form class="signup" id="signupForm">
+      <input type="email" id="emailInput" placeholder="your email · 이메일" required>
+      <button type="submit" id="submitBtn">Subscribe ✦</button>
+    </form>
+    <p class="fineprint" id="fineprint">No spam. No pressure. Unsubscribe whenever you need to.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-mark">serene with mary <span class="sparkle">✦</span></div>
+  <div class="footer-tagline">Wisdom for the slow work of recovery · 시카고에서, 조용히.</div>
+  <div class="socials">
+    <a href="https://instagram.com/serenewithmary" target="_blank">Instagram</a>
+    <a href="#" target="_blank">Substack</a>
+    <a href="#" target="_blank">Spotify</a>
+    <a href="https://serenetoday.etsy.com" target="_blank">Shop</a>
+    <a href="mailto:hello@yourdomain.com">Contact</a>
+  </div>
+  <div class="copyright">© 2026 · serene with mary · all works herein <span class="sparkle">✦</span></div>
+</footer>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+// ============ CUSTOM CURSOR ============
+const cursor = document.getElementById('cursor');
+let cursorX = 0, cursorY = 0;
+let targetX = 0, targetY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  targetX = e.clientX;
+  targetY = e.clientY;
+});
+
+function animateCursor() {
+  cursorX += (targetX - cursorX) * 0.55;
+  cursorY += (targetY - cursorY) * 0.55;
+  cursor.style.left = cursorX + 'px';
+  cursor.style.top = cursorY + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// hover effect on interactive elements
+document.querySelectorAll('a, button, .room, .orb').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
+
+// ============ CLICK SPARKLES ============
+const sparkleChars = ['✦', '✧', '⋆', '✨'];
+document.addEventListener('click', (e) => {
+  // create 3 sparkles per click
+  for (let i = 0; i < 3; i++) {
+    const sparkle = document.createElement('div');
+    sparkle.className = 'click-sparkle';
+    sparkle.textContent = sparkleChars[Math.floor(Math.random() * sparkleChars.length)];
+    sparkle.style.left = (e.clientX + (Math.random() - 0.5) * 30) + 'px';
+    sparkle.style.top = (e.clientY + (Math.random() - 0.5) * 30) + 'px';
+    sparkle.style.color = ['#D4A84A', '#C8A8E8', '#F4C4E0'][Math.floor(Math.random() * 3)];
+    sparkle.style.animationDelay = (i * 0.1) + 's';
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 1000);
+  }
+});
+
+// ============ SCROLL PROGRESS BAR ============
+const scrollProgress = document.getElementById('scrollProgress');
+const nav = document.getElementById('nav');
+
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = (scrollTop / docHeight) * 100;
+  scrollProgress.style.width = progress + '%';
+
+  // shrink nav on scroll
+  if (scrollTop > 50) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+
+// ============ TYPED WORD ROTATION ============
+const words = ['yourself', 'home', 'whole', 'rooted', 'soft again'];
+const typedEl = document.getElementById('typedWord');
+let wordIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+function typeLoop() {
+  const currentWord = words[wordIndex];
+
+  if (!isDeleting) {
+    typedEl.textContent = currentWord.slice(0, charIndex + 1);
+    charIndex++;
+    if (charIndex === currentWord.length) {
+      isDeleting = true;
+      setTimeout(typeLoop, 2000);
+      return;
+    }
+  } else {
+    typedEl.textContent = currentWord.slice(0, charIndex - 1);
+    charIndex--;
+    if (charIndex === 0) {
+      isDeleting = false;
+      wordIndex = (wordIndex + 1) % words.length;
+    }
+  }
+
+  setTimeout(typeLoop, isDeleting ? 50 : 100);
+}
+setTimeout(typeLoop, 1500);
+
+// ============ ROOM MODALS ============
+const roomData = {
+  words: {
+    title: 'Words · 글',
+    content: `
+      <p>Long-form essays, short letters, and the occasional poem — in English, Korean, or both at once.</p>
+      <p>The newsletter is the main home for new writing. Subscribe at the bottom of the page, and a letter will find you every other Sunday.</p>
+      <div class="modal-ko ko">
+        긴 에세이, 짧은 편지, 가끔 시 — 영어와 한국어로.<br>
+        새 글은 격주 일요일 뉴스레터로 보내드려요. ✦
+      </div>
+    `
+  },
+  images: {
+    title: 'Images · 그림',
+    content: `
+      <p>Illustrations and small objects — sticker sets, art prints, enamel pins, crocheted softness. All available at <strong>serenetoday.etsy.com</strong>.</p>
+      <p>Each piece tries to hold a hard truth in soft hands. Made slowly, in limited runs.</p>
+      <div class="modal-ko ko">
+        일러스트, 스티커, 프린트, 에나멜 핀, 크로셰 작업 —<br>
+        모두 Etsy에서 만나보실 수 있어요. ✦
+      </div>
+    `
+  },
+  sound: {
+    title: 'Sound · 소리',
+    content: `
+      <p>Piano pieces and ambient tracks, made at home, mostly at quiet hours. For when reading takes too much.</p>
+      <p>Available on Spotify and Apple Music. Headphones recommended; volume low.</p>
+      <div class="modal-ko ko">
+        집에서 만든 피아노 소품과 앰비언트 트랙들.<br>
+        Spotify와 Apple Music에서 들으실 수 있어요. ✦
+      </div>
+    `
+  }
+};
+
+const modalOverlay = document.getElementById('modalOverlay');
+const modalContent = document.getElementById('modalContent');
+const modalClose = document.getElementById('modalClose');
+
+document.querySelectorAll('.room').forEach(room => {
+  room.addEventListener('click', () => {
+    const roomKey = room.dataset.room;
+    const data = roomData[roomKey];
+    modalContent.innerHTML = `<h3>${data.title}</h3>${data.content}`;
+    modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+function closeModal() {
+  modalOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+modalClose.addEventListener('click', closeModal);
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ============ NEWSLETTER FORM ============
+const form = document.getElementById('signupForm');
+const submitBtn = document.getElementById('submitBtn');
+const emailInput = document.getElementById('emailInput');
+const fineprint = document.getElementById('fineprint');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  submitBtn.textContent = 'Sending...';
+  submitBtn.disabled = true;
+
+  setTimeout(() => {
+    emailInput.value = '';
+    submitBtn.textContent = 'Subscribed ✦';
+    fineprint.textContent = '✦ Thank you. A letter will find you soon. ✦';
+    fineprint.classList.add('success');
+
+    setTimeout(() => {
+      submitBtn.textContent = 'Subscribe ✦';
+      submitBtn.disabled = false;
+      fineprint.textContent = 'No spam. No pressure. Unsubscribe whenever you need to.';
+      fineprint.classList.remove('success');
+    }, 4000);
+  }, 800);
+});
+
+// ============ SCROLL REVEALS ============
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
